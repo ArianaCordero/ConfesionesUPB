@@ -10,3 +10,4 @@ export { RejectionModal } from "./RejectionModal";
 export { ConfesionModerationCard } from "./ConfesionModerationCard";
 export { StepHeader } from "./StepHeader";
 export { SelectableChip } from "./SelectableChip";
+export { NextButton } from "./NextButton";

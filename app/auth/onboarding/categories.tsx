@@ -6,14 +6,13 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
-  ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../../hooks/useThemeColors";
 import { useUserStore } from "../../store/useUserStore";
 import type { Category } from "@/src/features/confesiones/types";
-import { StepHeader } from "@/src/features/confesiones/components";
+import { StepHeader, NextButton } from "@/src/features/confesiones/components";
 
 const CATEGORIES_INFO: Array<{
   id: Category;
@@ -207,22 +206,18 @@ export default function CategoriesScreen() {
           </View>
         )}
 
-        <Pressable
-          style={[styles.button, { backgroundColor: colors.primary }]}
+        <NextButton
+          label="Finalizar"
           onPress={handleFinish}
-          disabled={loading}
-        >
-          {loading ? (
-            <ActivityIndicator size="small" color={colors.surface} />
-          ) : (
-            <>
-              <Text style={[styles.buttonText, { color: colors.surface }]}>
-                Finalizar
-              </Text>
-              <Ionicons name="checkmark" size={20} color={colors.surface} />
-            </>
-          )}
-        </Pressable>
+          loading={loading}
+          icon="checkmark"
+          colors={{
+            primary: colors.primary,
+            surface: colors.surface,
+            border: colors.border,
+            subtle: colors.subtle,
+          }}
+        />
       </View>
     </SafeAreaView>
   );
@@ -286,17 +281,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     flex: 1,
-  },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 16,
-    borderRadius: 12,
-    gap: 8,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: "700",
   },
 });

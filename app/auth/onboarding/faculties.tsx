@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Pressable,
   SafeAreaView,
   ScrollView,
 } from "react-native";
@@ -12,7 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../../hooks/useThemeColors";
 import { useUserStore } from "../../store/useUserStore";
 import { FACULTADES_DISPONIBLES, type Facultad } from "@/src/features/confesiones/types";
-import { StepHeader, SelectableChip } from "@/src/features/confesiones/components";
+import { StepHeader, SelectableChip, NextButton } from "@/src/features/confesiones/components";
 
 export default function FacultiesScreen() {
   const { colors } = useThemeColors();
@@ -93,30 +92,17 @@ export default function FacultiesScreen() {
           </View>
         )}
 
-        <Pressable
-          style={[
-            styles.button,
-            {
-              backgroundColor: selected.length > 0 ? colors.primary : colors.border,
-            },
-          ]}
+        <NextButton
+          label="Continuar"
           onPress={handleContinue}
           disabled={selected.length === 0}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              { color: selected.length > 0 ? colors.surface : colors.subtle },
-            ]}
-          >
-            Continuar
-          </Text>
-          <Ionicons
-            name="arrow-forward"
-            size={20}
-            color={selected.length > 0 ? colors.surface : colors.subtle}
-          />
-        </Pressable>
+          colors={{
+            primary: colors.primary,
+            surface: colors.surface,
+            border: colors.border,
+            subtle: colors.subtle,
+          }}
+        />
       </View>
     </SafeAreaView>
   );
@@ -153,17 +139,5 @@ const styles = StyleSheet.create({
   selectedText: {
     fontSize: 14,
     fontWeight: "600",
-  },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 16,
-    borderRadius: 12,
-    gap: 8,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: "700",
   },
 });
