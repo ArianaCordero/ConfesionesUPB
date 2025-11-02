@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../../hooks/useThemeColors";
 import { useUserStore } from "../../store/useUserStore";
 import type { Category } from "@/src/features/confesiones/types";
+import { StepHeader } from "@/src/features/confesiones/components";
 
 const CATEGORIES_INFO: Array<{
   id: Category;
@@ -94,30 +95,23 @@ export default function CategoriesScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.header}>
-        <Pressable onPress={handleBack} hitSlop={8}>
-          <Ionicons name="arrow-back" size={24} color={colors.text} />
-        </Pressable>
-        <View style={styles.progressContainer}>
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
-        </View>
-        <View style={{ width: 24 }} />
-      </View>
+      <StepHeader
+        step={3}
+        title="Personaliza tus Categorías"
+        subtitle="Selecciona los tipos de confesiones que más te interesan (opcional)"
+        onBack={handleBack}
+        colors={{
+          text: colors.text,
+          subtle: colors.subtle,
+          primary: colors.primary,
+          border: colors.border,
+        }}
+      />
 
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.titleContainer}>
-          <Text style={[styles.title, { color: colors.text }]}>
-            Personaliza tus Categorías
-          </Text>
-          <Text style={[styles.subtitle, { color: colors.subtle }]}>
-            Selecciona los tipos de confesiones que más te interesan (opcional)
-          </Text>
-        </View>
 
         <View style={styles.categoriesContainer}>
           {CATEGORIES_INFO.map((category) => {
@@ -238,38 +232,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 24,
-    paddingTop: 16,
-    paddingBottom: 24,
-  },
-  progressContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-  progressDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
   content: {
     paddingHorizontal: 24,
     paddingBottom: 24,
-  },
-  titleContainer: {
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 15,
-    lineHeight: 22,
   },
   categoriesContainer: {
     flexDirection: "row",

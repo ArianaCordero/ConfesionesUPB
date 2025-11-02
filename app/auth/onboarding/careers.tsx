@@ -16,6 +16,7 @@ import {
   CARRERAS_POR_FACULTAD,
   type Carrera,
 } from "@/src/features/confesiones/types";
+import { StepHeader } from "@/src/features/confesiones/components";
 
 export default function CareersScreen() {
   const { colors } = useThemeColors();
@@ -58,30 +59,23 @@ export default function CareersScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.header}>
-        <Pressable onPress={handleBack} hitSlop={8}>
-          <Ionicons name="arrow-back" size={24} color={colors.text} />
-        </Pressable>
-        <View style={styles.progressContainer}>
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
-          <View style={[styles.progressDot, { backgroundColor: colors.border }]} />
-        </View>
-        <View style={{ width: 24 }} />
-      </View>
+      <StepHeader
+        step={2}
+        title="Selecciona tus Carreras"
+        subtitle="Elige las carreras que te interesan para ver confesiones relevantes"
+        onBack={handleBack}
+        colors={{
+          text: colors.text,
+          subtle: colors.subtle,
+          primary: colors.primary,
+          border: colors.border,
+        }}
+      />
 
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.titleContainer}>
-          <Text style={[styles.title, { color: colors.text }]}>
-            Selecciona tus Carreras
-          </Text>
-          <Text style={[styles.subtitle, { color: colors.subtle }]}>
-            Elige las carreras que te interesan para ver confesiones relevantes
-          </Text>
-        </View>
 
         {recommendedCareers.length > 0 && (
           <View style={styles.section}>
@@ -222,38 +216,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 24,
-    paddingTop: 16,
-    paddingBottom: 24,
-  },
-  progressContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-  progressDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
   content: {
     paddingHorizontal: 24,
     paddingBottom: 24,
-  },
-  titleContainer: {
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 15,
-    lineHeight: 22,
   },
   section: {
     marginBottom: 32,
