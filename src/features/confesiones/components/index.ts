@@ -6,3 +6,4 @@ export { UploadImageButton } from "./UploadImageButton";
 export { ConfesionCard } from "./ConfesionCard";
 export { ModerationTabs } from "./ModerationTabs";
 export { ModerationActionBar } from "./ModerationActionBar";
+export { RejectionModal } from "./RejectionModal";
