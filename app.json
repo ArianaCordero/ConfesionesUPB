@@ -15,7 +15,10 @@
     },
     "ios": {
       "bundleIdentifier": "com.upb.confessapp",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Mostramos tu ubicación para centrar el mapa y enseñarte puntos de interés cercanos al campus."
+      }
     },
     "android": {
       "package": "com.upb.confessapp",
