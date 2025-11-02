@@ -20,15 +20,15 @@ export default function TabsLayout() {
     >
       <Tabs.Screen
         name="index"
-        options={{ title: "Confesiones", tabBarIcon: ({ color, size }) => <Ionicons name="chatbubbles-outline" size={size} color={color} /> }}
+        options={{ title: "Confesiones", tabBarIcon: ({ color, size }: { color: string; size: number }) => <Ionicons name="chatbubbles-outline" size={size} color={color} /> }}
       />
       <Tabs.Screen
         name="publicar"
-        options={{ title: "Nuevo", tabBarIcon: ({ color, size }) => <Ionicons name="add-circle-outline" size={size} color={color} /> }}
+        options={{ title: "Nuevo", tabBarIcon: ({ color, size }: { color: string; size: number }) => <Ionicons name="add-circle-outline" size={size} color={color} /> }}
       />
       <Tabs.Screen
         name="perfil"
-        options={{ title: "Perfil", tabBarIcon: ({ color, size }) => <Ionicons name="person-circle-outline" size={size} color={color} /> }}
+        options={{ title: "Perfil", tabBarIcon: ({ color, size }: { color: string; size: number }) => <Ionicons name="person-circle-outline" size={size} color={color} /> }}
       />
       <Tabs.Screen
         name="mapas"
