@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../../hooks/useThemeColors";
 import { useUserStore } from "../../store/useUserStore";
 import { FACULTADES_DISPONIBLES, type Facultad } from "@/src/features/confesiones/types";
-import { StepHeader } from "@/src/features/confesiones/components";
+import { StepHeader, SelectableChip } from "@/src/features/confesiones/components";
 
 export default function FacultiesScreen() {
   const { colors } = useThemeColors();
@@ -61,38 +61,20 @@ export default function FacultiesScreen() {
       >
 
         <View style={styles.chipsContainer}>
-          {FACULTADES_DISPONIBLES.map((facultad) => {
-            const isSelected = selected.includes(facultad);
-            return (
-              <Pressable
-                key={facultad}
-                onPress={() => toggleFacultad(facultad)}
-                style={[
-                  styles.chip,
-                  {
-                    backgroundColor: isSelected
-                      ? colors.primary
-                      : colors.surface,
-                    borderColor: isSelected ? colors.primary : colors.border,
-                  },
-                ]}
-              >
-                <Ionicons
-                  name={isSelected ? "checkmark-circle" : "school-outline"}
-                  size={20}
-                  color={isSelected ? colors.surface : colors.text}
-                />
-                <Text
-                  style={[
-                    styles.chipText,
-                    { color: isSelected ? colors.surface : colors.text },
-                  ]}
-                >
-                  {facultad}
-                </Text>
-              </Pressable>
-            );
-          })}
+          {FACULTADES_DISPONIBLES.map((facultad) => (
+            <SelectableChip
+              key={facultad}
+              label={facultad}
+              isSelected={selected.includes(facultad)}
+              onPress={() => toggleFacultad(facultad)}
+              colors={{
+                primary: colors.primary,
+                surface: colors.surface,
+                border: colors.border,
+                text: colors.text,
+              }}
+            />
+          ))}
         </View>
       </ScrollView>
 
@@ -152,20 +134,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 12,
-  },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    borderWidth: 2,
-    minWidth: "100%",
-  },
-  chipText: {
-    fontSize: 15,
-    fontWeight: "600",
   },
   footer: {
     paddingHorizontal: 24,

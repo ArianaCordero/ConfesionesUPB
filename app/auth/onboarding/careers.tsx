@@ -16,7 +16,7 @@ import {
   CARRERAS_POR_FACULTAD,
   type Carrera,
 } from "@/src/features/confesiones/types";
-import { StepHeader } from "@/src/features/confesiones/components";
+import { StepHeader, SelectableChip } from "@/src/features/confesiones/components";
 
 export default function CareersScreen() {
   const { colors } = useThemeColors();
@@ -86,38 +86,22 @@ export default function CareersScreen() {
               </Text>
             </View>
             <View style={styles.chipsContainer}>
-              {recommendedCareers.map((carrera) => {
-                const isSelected = selected.includes(carrera);
-                return (
-                  <Pressable
-                    key={carrera}
-                    onPress={() => toggleCarrera(carrera)}
-                    style={[
-                      styles.chip,
-                      {
-                        backgroundColor: isSelected
-                          ? colors.primary
-                          : colors.surface,
-                        borderColor: isSelected ? colors.primary : colors.border,
-                      },
-                    ]}
-                  >
-                    <Ionicons
-                      name={isSelected ? "checkmark-circle" : "ellipse-outline"}
-                      size={18}
-                      color={isSelected ? colors.surface : colors.text}
-                    />
-                    <Text
-                      style={[
-                        styles.chipText,
-                        { color: isSelected ? colors.surface : colors.text },
-                      ]}
-                    >
-                      {carrera}
-                    </Text>
-                  </Pressable>
-                );
-              })}
+              {recommendedCareers.map((carrera) => (
+                <SelectableChip
+                  key={carrera}
+                  label={carrera}
+                  isSelected={selected.includes(carrera)}
+                  onPress={() => toggleCarrera(carrera)}
+                  selectedIcon="checkmark-circle"
+                  unselectedIcon="ellipse-outline"
+                  colors={{
+                    primary: colors.primary,
+                    surface: colors.surface,
+                    border: colors.border,
+                    text: colors.text,
+                  }}
+                />
+              ))}
             </View>
           </View>
         )}
@@ -131,38 +115,22 @@ export default function CareersScreen() {
               </Text>
             </View>
             <View style={styles.chipsContainer}>
-              {otherCareers.map((carrera) => {
-                const isSelected = selected.includes(carrera);
-                return (
-                  <Pressable
-                    key={carrera}
-                    onPress={() => toggleCarrera(carrera)}
-                    style={[
-                      styles.chip,
-                      {
-                        backgroundColor: isSelected
-                          ? colors.primary
-                          : colors.surface,
-                        borderColor: isSelected ? colors.primary : colors.border,
-                      },
-                    ]}
-                  >
-                    <Ionicons
-                      name={isSelected ? "checkmark-circle" : "ellipse-outline"}
-                      size={18}
-                      color={isSelected ? colors.surface : colors.text}
-                    />
-                    <Text
-                      style={[
-                        styles.chipText,
-                        { color: isSelected ? colors.surface : colors.text },
-                      ]}
-                    >
-                      {carrera}
-                    </Text>
-                  </Pressable>
-                );
-              })}
+              {otherCareers.map((carrera) => (
+                <SelectableChip
+                  key={carrera}
+                  label={carrera}
+                  isSelected={selected.includes(carrera)}
+                  onPress={() => toggleCarrera(carrera)}
+                  selectedIcon="checkmark-circle"
+                  unselectedIcon="ellipse-outline"
+                  colors={{
+                    primary: colors.primary,
+                    surface: colors.surface,
+                    border: colors.border,
+                    text: colors.text,
+                  }}
+                />
+              ))}
             </View>
           </View>
         )}
@@ -237,19 +205,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
-  },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 10,
-    borderWidth: 1.5,
-  },
-  chipText: {
-    fontSize: 14,
-    fontWeight: "600",
   },
   footer: {
     paddingHorizontal: 24,

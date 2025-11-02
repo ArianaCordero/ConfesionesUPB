@@ -9,3 +9,4 @@ export { ModerationActionBar } from "./ModerationActionBar";
 export { RejectionModal } from "./RejectionModal";
 export { ConfesionModerationCard } from "./ConfesionModerationCard";
 export { StepHeader } from "./StepHeader";
+export { SelectableChip } from "./SelectableChip";
