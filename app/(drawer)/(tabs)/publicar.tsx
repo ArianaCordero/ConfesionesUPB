@@ -21,7 +21,7 @@ export default function NuevaConfesion() {
   const { colors, effective } = useThemeColors();
   const isLight = effective === "light";
 
-  const addPendiente = useConfesionesStore((s) => s.addPendiente);
+  const addPendiente = useConfesionesStore((s: any) => s.addPendiente);
   const [texto, setTexto] = useState("");
   const [categoria, setCategoria] = useState<Category>("amor");
   const [carrera, setCarrera] = useState("Administración de Empresas");

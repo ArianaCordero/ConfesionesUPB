@@ -18,9 +18,9 @@ export default function ConfesionDetail() {
   const { id } = useLocalSearchParams();
   const { colors } = useThemeColors();
 
-  const aprobadas = useConfesionesStore((s) => s.aprobadas);
+  const aprobadas = useConfesionesStore((s: any) => s.aprobadas);
   const confesion =
-    aprobadas.find((c) => String(c.id) === String(id)) as
+    aprobadas.find((c: any) => String(c.id) === String(id)) as
       | (typeof aprobadas[number] & ModeratedFields)
       | undefined;
 

@@ -80,10 +80,10 @@ function Chip({
 export default function Perfil() {
   const { colors } = useThemeColors();
   const router = useRouter();
-  const isAdmin = useUIStore((s) => s.isAdmin);
-  const toggleAdmin = useUIStore((s) => s.toggleAdmin);
-  const theme = useUIStore((s) => s.theme);
-  const setTheme = useUIStore((s) => s.setTheme);
+  const isAdmin = useUIStore((s: any) => s.isAdmin);
+  const toggleAdmin = useUIStore((s: any) => s.toggleAdmin);
+  const theme = useUIStore((s: any) => s.theme);
+  const setTheme = useUIStore((s: any) => s.setTheme);
 
   const {
     carrerasDeInteres,

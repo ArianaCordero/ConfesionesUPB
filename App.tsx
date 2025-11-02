@@ -16,13 +16,13 @@ export default function App() {
   const [selectedCarrera, setSelectedCarrera] = useState<string>("Ingeniería de Sistemas");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const pendientes = useConfesionesStore((s) => s.pendientes);
-  const rechazadas = useConfesionesStore((s) => s.rechazadas);
-  const addPendiente = useConfesionesStore((s) => s.addPendiente);
-  const getAprobadasSorted = useConfesionesStore((s) => s.getAprobadasSorted);
-  const loadConfesiones = useConfesionesStore((s) => s.loadConfesiones);
-  const approveConfesion = useConfesionesStore((s) => s.approve);
-  const rejectConfesion = useConfesionesStore((s) => s.reject);
+  const pendientes = useConfesionesStore((s: any) => s.pendientes);
+  const rechazadas = useConfesionesStore((s: any) => s.rechazadas);
+  const addPendiente = useConfesionesStore((s: any) => s.addPendiente);
+  const getAprobadasSorted = useConfesionesStore((s: any) => s.getAprobadasSorted);
+  const loadConfesiones = useConfesionesStore((s: any) => s.loadConfesiones);
+  const approveConfesion = useConfesionesStore((s: any) => s.approve);
+  const rejectConfesion = useConfesionesStore((s: any) => s.reject);
 
   const approvedConfesiones = useMemo(() => getAprobadasSorted([]), [getAprobadasSorted]);
 
@@ -125,7 +125,7 @@ export default function App() {
             {pendientes.length === 0 ? (
               <Text style={styles.emptyText}>No hay confesiones pendientes.</Text>
             ) : (
-              pendientes.map((conf) => (
+              pendientes.map((conf: any) => (
                 <View key={conf.id} style={styles.card}>
                   <Text style={styles.cardTitle}>{conf.nexo}</Text>
                   <Text style={styles.cardContent}>{conf.content}</Text>
@@ -156,7 +156,7 @@ export default function App() {
                   {(conf.moderationLogs ?? []).length > 0 && (
                     <View style={styles.logContainer}>
                       <Text style={styles.logTitle}>Auditoría</Text>
-                      {(conf.moderationLogs ?? []).map((log) => (
+                      {(conf.moderationLogs ?? []).map((log: any) => (
                         <View key={log.id} style={styles.logItem}>
                           <Text 
                             style={[
@@ -183,7 +183,7 @@ export default function App() {
             {rechazadas.length === 0 ? (
               <Text style={styles.emptyText}>No hay confesiones rechazadas.</Text>
             ) : (
-              rechazadas.map((conf) => (
+              rechazadas.map((conf: any) => (
                 <View key={conf.id} style={styles.cardMuted}>
                   <Text style={styles.cardTitle}>{conf.nexo}</Text>
                   <Text style={styles.cardContent}>{conf.content}</Text>
@@ -272,7 +272,7 @@ export default function App() {
             {approvedConfesiones.length === 0 ? (
               <Text style={styles.emptyText}>No hay confesiones aprobadas aún.</Text>
             ) : (
-              approvedConfesiones.map((conf) => (
+              approvedConfesiones.map((conf: any) => (
                 <View key={conf.id} style={styles.card}>
                   <Text style={styles.cardTitle}>{conf.nexo}</Text>
                   <Text style={styles.cardContent}>{conf.content}</Text>

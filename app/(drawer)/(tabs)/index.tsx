@@ -40,10 +40,10 @@ export default function ConfesionesList() {
   const isLight = effective === "light";
   const router = useRouter();
 
-  const getAprobadasSorted = useConfesionesStore((s) => s.getAprobadasSorted);
-  const aprobadas = useConfesionesStore((s) => s.aprobadas);
-  const toggleLike = useConfesionesStore((s) => s.toggleLike);
-  const likedIds = useConfesionesStore((s) => s.likedIds);
+  const getAprobadasSorted = useConfesionesStore((s: any) => s.getAprobadasSorted);
+  const aprobadas = useConfesionesStore((s: any) => s.aprobadas);
+  const toggleLike = useConfesionesStore((s: any) => s.toggleLike);
+  const likedIds = useConfesionesStore((s: any) => s.likedIds);
   const hasHydrated = useConfesionesStore.persist.hasHydrated();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function ConfesionesList() {
 const [imageModalVisible, setImageModalVisible] = useState(false);
 const [selectedImage, setSelectedImage] = useState<any>(null);
 
-  const carrerasDeInteres = useUserStore((s) => s.carrerasDeInteres);
+  const carrerasDeInteres = useUserStore((s: any) => s.carrerasDeInteres);
 
   
   const [openComments, setOpenComments] = useState(false);
@@ -137,12 +137,12 @@ const [selectedImage, setSelectedImage] = useState<any>(null);
 
     // Filtrar por facultad
     if (selectedFacultad !== "all") {
-      sorted = sorted.filter((c) => getFacultadGrande(c.carrera) === selectedFacultad);
+      sorted = sorted.filter((c: any) => getFacultadGrande(c.carrera) === selectedFacultad);
     }
-    
+
     // Filtrar por categoría
     if (selectedCategory === "all") return sorted;
-    return sorted.filter((c) => c.category === selectedCategory);
+    return sorted.filter((c: any) => c.category === selectedCategory);
   }, [getAprobadasSorted, carrerasDeInteres, selectedCategory, selectedFacultad, aprobadas, sortMode, commentsByConfession]);
 
   const catColor = isLight ? colors.primary : colors.secondary;
