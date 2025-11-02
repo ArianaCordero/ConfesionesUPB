@@ -10,7 +10,7 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
-import { db, auth } from "../data/firebase";
+import { db, auth } from "@/src/lib/firebase";
 
 
 type Comment = {

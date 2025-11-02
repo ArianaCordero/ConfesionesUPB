@@ -11,7 +11,7 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../../hooks/useThemeColors";
 import { useUserStore } from "../../store/useUserStore";
-import { FACULTADES_DISPONIBLES, type Facultad } from "../../data/seed";
+import { FACULTADES_DISPONIBLES, type Facultad } from "@/src/features/confesiones/types";
 
 export default function FacultiesScreen() {
   const { colors } = useThemeColors();

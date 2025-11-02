@@ -15,7 +15,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useConfesionesStore } from "./store/useConfesionesStore";
 import { useThemeColors } from "./hooks/useThemeColors";
-import type { Confesion } from "./data/seed";
+import type { Confesion } from "@/src/features/confesiones/types";
+import { ModerationTabs, ModerationActionBar } from "@/src/features/confesiones/components";
 
 function timeAgo(ts: number) {
   const diff = Date.now() - ts;
@@ -133,63 +134,16 @@ export default function Moderacion() {
       </View>
 
 
-      <View style={[styles.tabs, { backgroundColor: colors.surface }]}>
-        <Pressable
-          onPress={() => setActiveTab("pending")}
-          style={[
-            styles.tab,
-            {
-              borderBottomColor:
-                activeTab === "pending" ? colors.primary : "transparent",
-              borderBottomWidth: 3,
-            },
-          ]}
-        >
-          <Ionicons
-            name="time"
-            size={18}
-            color={
-              activeTab === "pending" ? colors.primary : colors.subtle
-            }
-          />
-          <Text
-            style={[
-              styles.tabText,
-              { color: activeTab === "pending" ? colors.primary : colors.subtle },
-            ]}
-          >
-            Pendientes ({pendientes.length})
-          </Text>
-        </Pressable>
-
-        <Pressable
-          onPress={() => setActiveTab("rejected")}
-          style={[
-            styles.tab,
-            {
-              borderBottomColor:
-                activeTab === "rejected" ? colors.primary : "transparent",
-              borderBottomWidth: 3,
-            },
-          ]}
-        >
-          <Ionicons
-            name="close-circle"
-            size={18}
-            color={
-              activeTab === "rejected" ? colors.primary : colors.subtle
-            }
-          />
-          <Text
-            style={[
-              styles.tabText,
-              { color: activeTab === "rejected" ? colors.primary : colors.subtle },
-            ]}
-          >
-            Rechazadas ({rechazadas.length})
-          </Text>
-        </Pressable>
-      </View>
+      <ModerationTabs
+        active={activeTab}
+        counts={{ pendientes: pendientes.length, rechazadas: rechazadas.length }}
+        onChange={setActiveTab}
+        colors={{
+          surface: colors.surface,
+          primary: colors.primary,
+          subtle: colors.subtle,
+        }}
+      />
 
  
       <FlatList
@@ -434,31 +388,10 @@ export default function Moderacion() {
                   ]}
                 />
 
-                <View style={styles.modalButtons}>
-                  <Pressable
-                    style={[styles.modalBtn, { backgroundColor: "#27ae60" }]}
-                    onPress={() => handleApprove(selected.id)}
-                  >
-                    <Ionicons
-                      name="checkmark-circle"
-                      size={20}
-                      color="white"
-                    />
-                    <Text style={styles.modalBtnText}>Aprobar</Text>
-                  </Pressable>
-
-                  <Pressable
-                    style={[styles.modalBtn, { backgroundColor: "#e74c3c" }]}
-                    onPress={() => handleReject(selected.id)}
-                  >
-                    <Ionicons
-                      name="close-circle"
-                      size={20}
-                      color="white"
-                    />
-                    <Text style={styles.modalBtnText}>Rechazar</Text>
-                  </Pressable>
-                </View>
+                <ModerationActionBar
+                  onApprove={() => handleApprove(selected.id)}
+                  onReject={() => handleReject(selected.id)}
+                />
               </>
             )}
           </>

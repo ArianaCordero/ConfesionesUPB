@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../data/firebase";
+import { auth } from "@/src/lib/firebase";
 import { useRouter } from "expo-router";
 import { useThemeColors } from "../hooks/useThemeColors";
 

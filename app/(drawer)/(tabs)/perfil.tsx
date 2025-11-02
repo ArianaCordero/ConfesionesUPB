@@ -18,8 +18,8 @@ import {
   FACULTADES_DISPONIBLES,
 } from "../../store/useUserStore";
 import { useRouter } from "expo-router";
-import type { Category, FacultadGrande } from "../../data/seed";
-import { CARRERAS_FIA, CARRERAS_FACED } from "../../data/seed";
+import type { Category, FacultadGrande } from "@/src/features/confesiones/types";
+import { CARRERAS_FIA, CARRERAS_FACED } from "@/src/features/confesiones/types";
 
 const CATEGORIES_INFO: Array<{ id: Category; name: string; icon: any }> = [
   { id: "amor", name: "Amor", icon: "heart" },

@@ -15,7 +15,7 @@ import {
   CARRERAS_DISPONIBLES,
   CARRERAS_POR_FACULTAD,
   type Carrera,
-} from "../../data/seed";
+} from "@/src/features/confesiones/types";
 
 export default function CareersScreen() {
   const { colors } = useThemeColors();

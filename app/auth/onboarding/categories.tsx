@@ -12,7 +12,7 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../../hooks/useThemeColors";
 import { useUserStore } from "../../store/useUserStore";
-import type { Category } from "../../data/seed";
+import type { Category } from "@/src/features/confesiones/types";
 
 const CATEGORIES_INFO: Array<{
   id: Category;

@@ -14,18 +14,18 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../hooks/useThemeColors";
-import { db } from "../data/firebase";
+import { db } from "@/src/lib/firebase";
 import { doc, updateDoc, increment } from "firebase/firestore";
-import { useUserStore } from "../store/useUserStore"; 
+import { useUserStore } from "../store/useUserStore";
 import * as ImagePicker from "expo-image-picker";
-import { uploadToCloudinary } from "../services/cloudinary";
+import { uploadToCloudinary } from "@/src/lib/cloudinary/upload";
 
 type Comment = {
   id: string;
   text: string;
   createdAt: number;
   confessionId: number;
-  image?: string;
+  image?: string | null;
   likes?: number;
   userId?: string;
 };

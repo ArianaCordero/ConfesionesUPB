@@ -1,5 +1,5 @@
 
-import { db } from "./firebase";
+import { db } from "@/src/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { seedAprobadas } from "./seed";
 

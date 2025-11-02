@@ -2,7 +2,7 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./data/firebase";
+import { auth } from "@/src/lib/firebase";
 import { useThemeColors } from "./hooks/useThemeColors";
 import { useUserStore } from "./store/useUserStore";
 import SplashScreen from "./SplashScreen";

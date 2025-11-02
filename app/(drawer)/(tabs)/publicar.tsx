@@ -4,14 +4,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../../hooks/useThemeColors";
 import { useConfesionesStore } from "../../store/useConfesionesStore";
 import * as ImagePicker from "expo-image-picker";
-import { uploadToCloudinary } from "../../services/cloudinary";
-import type { Confesion } from "../../data/seed";
-import { CARRERAS_DISPONIBLES } from "../../data/seed";
+import { uploadToCloudinary } from "@/src/lib/cloudinary/upload";
+import type { Confesion, Category } from "@/src/features/confesiones/types";
+import { CARRERAS_DISPONIBLES } from "@/src/features/confesiones/types";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
-
-
-
-type Category = "amor" | "academico" | "random";
 
 const cardShadow = Platform.OS === "ios"
   ? { shadowColor: "black", shadowOpacity: 0.08, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } }

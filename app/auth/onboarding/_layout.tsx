@@ -8,7 +8,6 @@ export default function OnboardingLayout() {
     <Stack
       screenOptions={{
         headerShown: true,
-        headerBackTitleVisible: false,
         headerTitle: "",
         headerStyle: {
           backgroundColor: colors.background,

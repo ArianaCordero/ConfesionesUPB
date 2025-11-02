@@ -5,7 +5,6 @@ import {
   FlatList,
   Pressable,
   StyleSheet,
-  Platform,
   ActivityIndicator,
   ScrollView,
 } from "react-native";
@@ -15,12 +14,12 @@ import { useConfesionesStore } from "../../store/useConfesionesStore";
 import { useCommentsStore } from "../../store/useCommentsStore";
 import { useUserStore } from "../../store/useUserStore";
 import { useThemeColors } from "../../hooks/useThemeColors";
-import type { Confesion, Category } from "../../data/seed";
-import { getFacultadGrande, type FacultadGrande } from "../../data/seed";
-import { Image } from "react-native"; 
+import type { Confesion, Category, FacultadGrande } from "@/src/features/confesiones/types";
+import { getFacultadGrande } from "@/src/features/confesiones/types";
 import CommentsModal from "../../components/CommentsModal";
-import ImageModal from "../../components/ImageModal"; 
+import ImageModal from "../../components/ImageModal";
 import { subirSeed } from "../../data/seedConfesiones";
+import { ConfesionCard } from "@/src/features/confesiones/components";
 
 
 
@@ -35,16 +34,6 @@ function timeAgo(ts: number) {
   if (d < 2) return "Hace un día";
   return `Hace ${d} d`;
 }
-
-const cardShadow =
-  Platform.OS === "ios"
-    ? {
-      shadowColor: "#000",
-      shadowOpacity: 0.08,
-      shadowRadius: 10,
-      shadowOffset: { width: 0, height: 4 },
-    }
-    : { elevation: 2 };
 
 export default function ConfesionesList() {
   const { colors, effective } = useThemeColors();
@@ -357,188 +346,40 @@ const [selectedImage, setSelectedImage] = useState<any>(null);
           const isFromInterest = carrerasDeInteres.includes(
             item.carrera as any
           );
-
           const facultadColor = getFacultadColor(item.carrera);
 
           return (
-            <Pressable
-              style={[
-                styles.card,
-                {
-                  borderColor: isFromInterest
-                    ? facultadColor
-                    : colors.border,
-                  backgroundColor: colors.surface,
-                  borderWidth: isFromInterest ? 2 : 1,
-                },
-                cardShadow,
-              ]}
-              onPress={() =>
-                router.push(`/(drawer)/(tabs)/confesion/${item.id}`)
+            <ConfesionCard
+              confesion={item}
+              isFromInterest={isFromInterest}
+              liked={liked}
+              facultadColor={facultadColor}
+              facultadBadge={getFacultadGrande(item.carrera)}
+              catColor={catColor}
+              likedColor={likedColor}
+              timeAgoText={timeAgo(item.date)}
+              onPress={() => router.push(`/(drawer)/(tabs)/confesion/${item.id}`)}
+              onToggleLike={() => toggleLike(item.id)}
+              onComment={() => {
+                setSelectedConfessionId(item.id);
+                setOpenComments(true);
+              }}
+              onImagePress={
+                item.image
+                  ? () => {
+                      setSelectedImage(item.image);
+                      setImageModalVisible(true);
+                    }
+                  : undefined
               }
-            >
-              <View style={styles.rowBetween}>
-                <View style={{ flex: 1 }}>
-                  <View style={styles.row}>
-                    <Ionicons
-                      name="eye-off-outline"
-                      size={14}
-                      color={colors.subtle}
-                    />
-                    <Text style={[styles.nexo, { color: colors.subtle }]}>
-                      {item.nexo}
-                    </Text>
-                    {isFromInterest && (
-                      <Ionicons
-                        name="star"
-                        size={12}
-                        color={facultadColor}
-                      />
-                    )}
-                  </View>
-                  <Text style={[styles.time, { color: colors.subtle }]}>
-                    {timeAgo(item.date)}
-                  </Text>
-                </View>
-                <View style={[styles.pill, { borderColor: catColor }]}>
-                  <Text style={[styles.pillText, { color: catColor }]}>
-                    {item.category.charAt(0).toUpperCase() +
-                      item.category.slice(1)}
-                  </Text>
-                </View>
-              </View>
-
-              <Text
-                style={[styles.content, { color: colors.text }]}
-                numberOfLines={3}
-              >
-                {item.content}
-              </Text>
-
-              {item.image && (
-  <Pressable
-    onPress={() => {
-       if (item.image) {
-    setSelectedImage(item.image);
-    setImageModalVisible(true);
-  }
-    }}
-  >
-    <Image
-      source={item.image}
-      style={{
-        width: "100%",
-        height: 200,
-        borderRadius: 12,
-        marginTop: 8,
-      }}
-      resizeMode="cover"
-    />
-  </Pressable>
-)}
-              <View style={styles.rowBetween}>
-                <View style={styles.carreraContainer}>
-                  <Ionicons
-                    name="school-outline"
-                    size={14}
-                    color={isFromInterest ? facultadColor : colors.subtle}
-                  />
-                  <Text
-                    style={[
-                      styles.carrera,
-                      {
-                        color: isFromInterest
-                          ? facultadColor
-                          : colors.subtle,
-                      },
-                    ]}
-                  >
-                    {item.carrera}
-                  </Text>
-                </View>
-                <View
-                  style={[
-                    styles.facultadBadge,
-                    {
-                      backgroundColor: getFacultadColor(item.carrera),
-                    },
-                  ]}
-                >
-                  <Text style={[styles.facultadBadgeText, { color: colors.surface }]}>
-                    {getFacultadGrande(item.carrera)}
-                  </Text>
-                </View>
-              </View>
-
-
-              <View style={styles.rowBetween}>
-                <Text style={[styles.meta, { color: colors.subtle }]}>
-                  {item.likes} {item.likes === 1 ? "like" : "likes"}
-                </Text>
-
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  
-                  <Pressable
-                    hitSlop={8}
-                    style={[
-                      styles.likeBtn,
-                      {
-                        borderColor: colors.border,
-                        backgroundColor: colors.surface,
-                      },
-                    ]}
-                    onPress={() => toggleLike(item.id)}
-                  >
-                    <Ionicons
-                      name={liked ? "heart" : "heart-outline"}
-                      size={18}
-                      color={liked ? likedColor : colors.tabInactive}
-                    />
-                    <Text
-                      style={[
-                        styles.likeText,
-                        {
-                          color: liked ? likedColor : colors.tabInactive,
-                        },
-                      ]}
-                    >
-                      {liked ? "Te gusta" : "Me gusta"}
-                    </Text>
-                  </Pressable>
-
-                  
-                  <Pressable
-                    hitSlop={8}
-                    style={[
-                      styles.likeBtn,
-                      {
-                        marginLeft: 10,
-                        borderColor: colors.border,
-                        backgroundColor: colors.surface,
-                      },
-                    ]}
-                    onPress={() => {
-                      setSelectedConfessionId(item.id);
-                      setOpenComments(true);
-                    }}
-                  >
-                    <Ionicons
-                      name="chatbubble-outline"
-                      size={18}
-                      color={colors.tabInactive}
-                    />
-                    <Text
-                      style={[
-                        styles.likeText,
-                        { color: colors.tabInactive },
-                      ]}
-                    >
-                      Comentar
-                    </Text>
-                  </Pressable>
-                </View>
-              </View>
-            </Pressable>
+              colors={{
+                surface: colors.surface,
+                border: colors.border,
+                subtle: colors.subtle,
+                text: colors.text,
+                tabInactive: colors.tabInactive,
+              }}
+            />
           );
         }}
       />
