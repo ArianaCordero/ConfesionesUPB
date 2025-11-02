@@ -7,3 +7,4 @@ export { ConfesionCard } from "./ConfesionCard";
 export { ModerationTabs } from "./ModerationTabs";
 export { ModerationActionBar } from "./ModerationActionBar";
 export { RejectionModal } from "./RejectionModal";
+export { ConfesionModerationCard } from "./ConfesionModerationCard";

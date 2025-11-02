@@ -5,14 +5,13 @@ import {
   FlatList,
   Pressable,
   StyleSheet,
-  Image,
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useConfesionesStore } from "./store/useConfesionesStore";
 import { useThemeColors } from "./hooks/useThemeColors";
 import type { Confesion } from "@/src/features/confesiones/types";
-import { ModerationTabs, ModerationActionBar, RejectionModal } from "@/src/features/confesiones/components";
+import { ModerationTabs, ModerationActionBar, RejectionModal, ConfesionModerationCard } from "@/src/features/confesiones/components";
 
 function timeAgo(ts: number) {
   const diff = Date.now() - ts;
@@ -178,87 +177,22 @@ export default function Moderacion() {
           const categoryIcon = getCategoryIcon(item.category);
 
           return (
-            <Pressable
+            <ConfesionModerationCard
+              item={item}
               onPress={() => setSelected(item)}
-              style={[
-                styles.card,
-                { backgroundColor: colors.surface, borderColor: colors.border },
-              ]}
-              android_ripple={{ color: colors.border }}
-            >
-              <View style={styles.cardHeader}>
-                <View
-                  style={[
-                    styles.categoryBadge,
-                    { backgroundColor: categoryColor + "15" },
-                  ]}
-                >
-                  <Ionicons name={categoryIcon} size={14} color={categoryColor} />
-                  <Text
-                    style={[styles.categoryText, { color: categoryColor }]}
-                  >
-                    {item.category.charAt(0).toUpperCase() +
-                      item.category.slice(1)}
-                  </Text>
-                </View>
-                <Text style={[styles.timeText, { color: colors.subtle }]}>
-                  {timeAgo(item.date)}
-                </Text>
-              </View>
-
-              <Text numberOfLines={3} style={[styles.content, { color: colors.text }]}>
-                {item.content}
-              </Text>
-
-              {item.image && (
-                <Image source={item.image} style={styles.image} resizeMode="cover" />
-              )}
-
-              <View style={styles.cardFooter}>
-                <View style={styles.metaInfo}>
-                  <Ionicons name="school" size={14} color={colors.subtle} />
-                  <Text style={[styles.metaText, { color: colors.subtle }]}>
-                    {item.carrera}
-                  </Text>
-                </View>
-
-                {activeTab === "pending" && (
-                  <View style={styles.actionButtons}>
-                    <Pressable
-                      style={[
-                        styles.actionBtn,
-                        {
-                          backgroundColor: "#27ae60" + "15",
-                          borderColor: "#27ae60",
-                        },
-                      ]}
-                      onPress={(e) => {
-                        e.stopPropagation();
-                        handleApprove(item.id);
-                      }}
-                    >
-                      <Ionicons name="checkmark" size={16} color="#27ae60" />
-                    </Pressable>
-
-                    <Pressable
-                      style={[
-                        styles.actionBtn,
-                        {
-                          backgroundColor: "#e74c3c" + "15",
-                          borderColor: "#e74c3c",
-                        },
-                      ]}
-                      onPress={(e) => {
-                        e.stopPropagation();
-                        setSelected(item);
-                      }}
-                    >
-                      <Ionicons name="close" size={16} color="#e74c3c" />
-                    </Pressable>
-                  </View>
-                )}
-              </View>
-            </Pressable>
+              categoryColor={categoryColor}
+              categoryIcon={categoryIcon}
+              timeAgoText={timeAgo(item.date)}
+              onApprove={() => handleApprove(item.id)}
+              onReject={() => setSelected(item)}
+              showActions={activeTab === "pending"}
+              colors={{
+                surface: colors.surface,
+                border: colors.border,
+                text: colors.text,
+                subtle: colors.subtle,
+              }}
+            />
           );
         }}
       />
@@ -311,16 +245,6 @@ const styles = StyleSheet.create({
   },
   statNumber: { fontSize: 20, fontWeight: "bold" },
   statLabel: { fontSize: 12 },
-  tabs: { flexDirection: "row", paddingHorizontal: 16 },
-  tab: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    paddingVertical: 12,
-  },
-  tabText: { fontSize: 14, fontWeight: "600" },
   listContent: { padding: 16, gap: 12 },
   emptyState: {
     alignItems: "center",
@@ -337,39 +261,4 @@ const styles = StyleSheet.create({
   },
   emptyTitle: { fontSize: 18, fontWeight: "700", marginBottom: 8 },
   emptySubtitle: { fontSize: 14, textAlign: "center" },
-  card: { borderRadius: 16, borderWidth: 1, padding: 16, gap: 12 },
-  cardHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  categoryBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 8,
-  },
-  categoryText: { fontSize: 12, fontWeight: "700" },
-  timeText: { fontSize: 12 },
-  content: { fontSize: 15, lineHeight: 22 },
-  image: { width: "100%", height: 180, borderRadius: 12 },
-  cardFooter: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  metaInfo: { flexDirection: "row", alignItems: "center", gap: 6 },
-  metaText: { fontSize: 12, fontWeight: "500" },
-  actionButtons: { flexDirection: "row", gap: 8 },
-  actionBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  metaRow: { flexDirection: "row", alignItems: "center", gap: 6 },
  });
