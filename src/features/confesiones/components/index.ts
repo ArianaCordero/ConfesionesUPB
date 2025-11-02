@@ -11,3 +11,5 @@ export { ConfesionModerationCard } from "./ConfesionModerationCard";
 export { StepHeader } from "./StepHeader";
 export { SelectableChip } from "./SelectableChip";
 export { NextButton } from "./NextButton";
+export { ModeChip } from "./ModeChip";
+export { SectionCard } from "./SectionCard";
