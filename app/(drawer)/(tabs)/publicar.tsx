@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, Platform, Image, ActivityIndicator, ScrollView } from "react-native";
+import { View, Text, TextInput, Pressable, StyleSheet, Image, ActivityIndicator, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "../../hooks/useThemeColors";
 import { useConfesionesStore } from "../../store/useConfesionesStore";
@@ -8,10 +8,7 @@ import { uploadToCloudinary } from "@/src/lib/cloudinary/upload";
 import type { Confesion, Category } from "@/src/features/confesiones/types";
 import { CARRERAS_DISPONIBLES } from "@/src/features/confesiones/types";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
-
-const cardShadow = Platform.OS === "ios"
-  ? { shadowColor: "black", shadowOpacity: 0.08, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } }
-  : { elevation: 2 };
+import { ModeChip, SectionCard } from "@/src/features/confesiones/components";
 
 const alpha = (hex: string, a: number) => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -92,8 +89,14 @@ const submit = async () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-      <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }, cardShadow]}>
-        <Text style={[styles.label, { color: colors.text }]}>Tu confesión</Text>
+      <SectionCard
+        label="Tu confesión"
+        colors={{
+          surface: colors.surface,
+          border: colors.border,
+          text: colors.text,
+        }}
+      >
         <TextInput
           value={texto}
           onChangeText={setTexto}
@@ -118,55 +121,64 @@ const submit = async () => {
           <Text style={[styles.hint, { color: counterColor }]}>{len}/500</Text>
           <Text style={[styles.hint, { color: colors.subtle }]}>mín. 10 caracteres</Text>
         </View>
-      </View>
+      </SectionCard>
 
 
-      <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <Text style={[styles.label, { color: colors.text }]}>Categoría</Text>
+      <SectionCard
+        label="Categoría"
+        colors={{
+          surface: colors.surface,
+          border: colors.border,
+          text: colors.text,
+        }}
+      >
         <View style={styles.rowChips}>
           {(["amor", "academico", "random"] as Category[]).map((c) => {
             const selected = categoria === c;
             return (
-              <Pressable
+              <ModeChip
                 key={c}
+                label={label(c)}
+                isSelected={selected}
                 onPress={() => setCategoria(c)}
-                style={[
-                  styles.chip,
-                  { borderColor: selected ? chipColor : colors.border, backgroundColor: selected ? alpha(chipColor, 0.12) : "transparent" },
-                ]}
-                android_ripple={{ color: alpha(chipColor, 0.2) }}
-              >
-                <Text style={[styles.chipText, { color: selected ? chipColor : colors.text }]}>{label(c)}</Text>
-              </Pressable>
+                chipColor={chipColor}
+                textColor={selected ? chipColor : colors.text}
+                borderColor={selected ? chipColor : colors.border}
+                backgroundColor={selected ? alpha(chipColor, 0.12) : "transparent"}
+                rippleColor={alpha(chipColor, 0.2)}
+              />
             );
           })}
         </View>
-      </View>
+      </SectionCard>
 
-      <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <Text style={[styles.label, { color: colors.text }]}>Carrera</Text>
+      <SectionCard
+        label="Carrera"
+        colors={{
+          surface: colors.surface,
+          border: colors.border,
+          text: colors.text,
+        }}
+      >
         <View style={styles.rowChips}>
           {CARRERAS_DISPONIBLES.map((c) => {
             const selected = carrera === c;
             return (
-              <Pressable
+              <ModeChip
                 key={c}
+                label={c}
+                isSelected={selected}
                 onPress={() => setCarrera(c)}
-                style={[
-                  styles.chip,
-                  {
-                    borderColor: selected ? chipColor : colors.border,
-                    backgroundColor: selected ? alpha(chipColor, 0.12) : "transparent",
-                  },
-                ]}
-                android_ripple={{ color: alpha(chipColor, 0.2) }}
-              >
-                <Text style={[styles.chipText, { color: selected ? chipColor : colors.text }]}>{c}</Text>
-              </Pressable>
+                chipColor={chipColor}
+                textColor={selected ? chipColor : colors.text}
+                borderColor={selected ? chipColor : colors.border}
+                backgroundColor={selected ? alpha(chipColor, 0.12) : "transparent"}
+                rippleColor={alpha(chipColor, 0.2)}
+              />
             );
           })}
         </View>
-      </View>
+      </SectionCard>
 
       <Pressable
         onPress={submit}
@@ -199,24 +211,20 @@ const submit = async () => {
 const styles = StyleSheet.create({
   screen: { flex: 1, padding: 16, backgroundColor: "transparent" },
   scrollContent: { gap: 16, paddingBottom: 24 },
-  card: { borderRadius: 16, borderWidth: 1, padding: 14, gap: 10 },
-  label: { fontSize: 14, fontWeight: "700" },
   input: { minHeight: 120, textAlignVertical: "top", fontSize: 16, lineHeight: 22 },
   hint: { fontSize: 12, fontWeight: "600" },
   rowBetween: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   rowChips: { flexDirection: "row", gap: 8, flexWrap: "wrap" },
-  chip: { paddingVertical: 8, paddingHorizontal: 12, borderWidth: 1, borderRadius: 999 },
-  chipText: { fontSize: 13, fontWeight: "700" },
   cameraButton: {
-  flexDirection: "row",
-  alignItems: "center",
-  gap: 6,
-  marginTop: 8,
-},
-cameraText: {
-  fontSize: 13,
-  fontWeight: "500",
-},
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginTop: 8,
+  },
+  cameraText: {
+    fontSize: 13,
+    fontWeight: "500",
+  },
   btn: {
     flexDirection: "row",
     alignItems: "center",
