@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { useThemeColors } from "@/app/hooks/useThemeColors";
+import React from "react";
 import { MapViewCard } from "@/src/features/maps/components/MapViewCard";
 import { LocateButton } from "@/src/features/maps/components/LocateButton";
 import {
@@ -10,12 +11,12 @@ import {
 import { loadCampusPois } from "@/src/features/maps/services/pois";
 import type { LatLng, Poi } from "@/src/features/maps/types";
 
-// Fallback region: Centro del campus UPB Medellín
+// Región por defecto: El Prado (Centro de La Paz)
 const DEFAULT_REGION = {
-  latitude: 6.2427,
-  longitude: -75.5795,
-  latitudeDelta: 0.01,
-  longitudeDelta: 0.01,
+  latitude: -16.49965,
+  longitude: -68.13429,
+  latitudeDelta: 0.06,
+  longitudeDelta: 0.06,
 };
 
 export default function MapasScreen() {
@@ -69,12 +70,18 @@ export default function MapasScreen() {
 
   // Determinar la región inicial
   const initialRegion = userLocation
-    ? { ...userLocation, latitudeDelta: 0.01, longitudeDelta: 0.01 }
+    ? {
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      }
     : DEFAULT_REGION;
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <MapViewCard
+        key={userLocation ? `${userLocation.latitude.toFixed(5)},${userLocation.longitude.toFixed(5)}` : "default"}
         initialRegion={initialRegion}
         userLocation={userLocation}
         pois={pois}

@@ -1,4 +1,5 @@
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
   onPress: () => void;
@@ -13,7 +14,7 @@ export function LocateButton({ onPress, disabled = false }: Props) {
       disabled={disabled}
       activeOpacity={0.7}
     >
-      <Text style={styles.icon}>📍</Text>
+      <Ionicons name="locate-outline" size={28} />
     </TouchableOpacity>
   );
 }
@@ -21,24 +22,18 @@ export function LocateButton({ onPress, disabled = false }: Props) {
 const styles = StyleSheet.create({
   button: {
     position: "absolute",
-    bottom: 32,
     right: 16,
-    width: 56,
-    height: 56,
+    bottom: 24,
+    backgroundColor: "white",
     borderRadius: 28,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    elevation: 6,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 5,
   },
   disabled: {
     opacity: 0.5,
-  },
-  icon: {
-    fontSize: 24,
   },
 });

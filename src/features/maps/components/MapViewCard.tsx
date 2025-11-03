@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import type { Poi, LatLng } from "@/src/features/maps/types";
 
 type Props = {
@@ -22,16 +22,13 @@ export function MapViewCard({
 }: Props) {
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} initialRegion={initialRegion}>
-        {/* Marcador de ubicación del usuario */}
-        {userLocation && (
-          <Marker
-            coordinate={userLocation}
-            title="Tu ubicación"
-            pinColor="blue"
-          />
-        )}
-
+      <MapView
+        style={styles.map}
+        initialRegion={initialRegion}
+        showsUserLocation={true}
+        showsMyLocationButton={false}
+        provider={PROVIDER_GOOGLE}
+      >
         {/* Marcadores de POIs */}
         {pois.map((poi) => (
           <Marker

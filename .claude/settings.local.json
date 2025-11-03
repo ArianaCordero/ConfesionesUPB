@@ -4,7 +4,14 @@
       "Bash(mkdir:*)",
       "Bash(npx tsc:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(npm install:*)",
+      "Bash(yarn install)",
+      "Bash(npm run type-check:*)",
+      "Bash(yarn remove:*)",
+      "Bash(yarn add:*)",
+      "Bash(npx expo install:*)",
+      "Bash(git diff:*)"
     ],
     "deny": [],
     "ask": []

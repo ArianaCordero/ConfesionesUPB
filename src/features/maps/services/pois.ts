@@ -1,74 +1,86 @@
 import type { Poi } from "@/src/features/maps/types";
 
-// POIs del campus UPB - datos seed locales
 const campusPois: Poi[] = [
+  // UPB (La Paz)
   {
-    id: "1",
-    title: "Biblioteca Central",
-    description: "Centro de recursos bibliográficos y estudio",
-    coordinate: { latitude: 6.2425, longitude: -75.5795 },
-    emoji: "📚",
-    color: "#4A90E2",
+    id: "upb-lapaz",
+    title: "UPB La Paz (Campus Achocalla)",
+    description: "Campus Achocalla",
+    coordinate: { latitude: -16.57533, longitude: -68.12708 },
+    color: "#003DA5",
   },
   {
-    id: "2",
-    title: "Cafetería Principal",
-    description: "Zona de alimentación y encuentro",
-    coordinate: { latitude: 6.2430, longitude: -75.5800 },
-    emoji: "☕",
-    color: "#F5A623",
+    id: "upb-lapaz-postgrado",
+    title: "UPB Postgrado La Paz (Obrajes)",
+    description: "Obrajes",
+    coordinate: { latitude: -16.52472, longitude: -68.11045 },
+    color: "#003DA5",
+  },
+
+  // UPB (Cochabamba)
+  {
+    id: "upb-cochabamba",
+    title: "UPB Cochabamba (Campus JLP)",
+    description: "Campus JLP, Km 6.5",
+    coordinate: { latitude: -17.39889, longitude: -66.21850 },
+    color: "#003DA5",
+  },
+
+  // UPB (Santa Cruz)
+  {
+    id: "upb-santacruz",
+    title: "UPB Santa Cruz (Campus)",
+    description: "Prol. Av. Piraí, 6º-7º anillo",
+    coordinate: { latitude: -17.72845, longitude: -63.15701 },
+    color: "#003DA5",
   },
   {
-    id: "3",
-    title: "Bloque 1 - Aulas",
-    description: "Edificio de aulas de pregrado",
-    coordinate: { latitude: 6.2420, longitude: -75.5790 },
-    emoji: "🏫",
-    color: "#7ED321",
+    id: "upb-santacruz-postgrado",
+    title: "UPB Postgrado Santa Cruz",
+    description: "Av. Los Cusis",
+    coordinate: { latitude: -17.76501, longitude: -63.17310 },
+    color: "#003DA5",
+  },
+
+  // Puntos juveniles (La Paz)
+  {
+    id: "megacenter",
+    title: "Megacenter (Irpavi)",
+    description: "Irpavi",
+    coordinate: { latitude: -16.53222, longitude: -68.08723 },
+    color: "#E91E63",
   },
   {
-    id: "4",
-    title: "Zona Deportiva",
-    description: "Canchas y gimnasio",
-    coordinate: { latitude: 6.2435, longitude: -75.5805 },
-    emoji: "⚽",
-    color: "#BD10E0",
+    id: "zona-sanmiguel",
+    title: "Zona San Miguel (Calacoto)",
+    description: "Calacoto",
+    coordinate: { latitude: -16.54115, longitude: -68.07828 },
+    color: "#FF9800",
   },
   {
-    id: "5",
-    title: "Teatro Camilo Torres",
-    description: "Auditorio principal para eventos",
-    coordinate: { latitude: 6.2428, longitude: -75.5798 },
-    emoji: "🎭",
-    color: "#FF6B6B",
+    id: "multicine",
+    title: "Multicine (San Jorge)",
+    description: "Av. Arce 2631",
+    coordinate: { latitude: -16.51090, longitude: -68.12210 },
+    color: "#9C27B0",
   },
   {
-    id: "6",
-    title: "Parque Central",
-    description: "Zona verde de descanso",
-    coordinate: { latitude: 6.2427, longitude: -75.5793 },
-    emoji: "🌳",
-    color: "#50E3C2",
+    id: "plaza-abaroa",
+    title: "Plaza Abaroa (Sopocachi)",
+    description: "Sopocachi",
+    coordinate: { latitude: -16.51061, longitude: -68.12674 },
+    color: "#4CAF50",
   },
   {
-    id: "7",
-    title: "Laboratorios de Ingeniería",
-    description: "Labs de prácticas e investigación",
-    coordinate: { latitude: 6.2422, longitude: -75.5788 },
-    emoji: "🔬",
-    color: "#9013FE",
-  },
-  {
-    id: "8",
-    title: "Centro de Sistemas",
-    description: "Salas de cómputo y recursos IT",
-    coordinate: { latitude: 6.2433, longitude: -75.5792 },
-    emoji: "💻",
-    color: "#F8E71C",
+    id: "el-prado",
+    title: "El Prado",
+    description: "Av. Mariscal Santa Cruz",
+    coordinate: { latitude: -16.49965, longitude: -68.13429 },
+    color: "#00BCD4",
   },
 ];
 
 export async function loadCampusPois(): Promise<Poi[]> {
-  // Simula carga asíncrona (para mantener contrato Promise)
   return Promise.resolve(campusPois);
 }
+
